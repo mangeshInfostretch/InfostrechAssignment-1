@@ -48,6 +48,8 @@ public class AssignmentTest1 extends BaseClass{
 		
 		Assert.assertTrue("Flight listing is not Present", verifyFlightListing(driver));
 		
+		takeScreenShot(driver);
+		
 		driver.quit();
 		
 		System.out.println("TEST PASS");
