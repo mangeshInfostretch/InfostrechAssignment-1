@@ -54,8 +54,4 @@ public class AssignmentTest1 extends BaseClass{
 		
 	}
 	
-	
-    
-
-	
 }
