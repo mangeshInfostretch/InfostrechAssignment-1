@@ -40,7 +40,6 @@ public class BaseClass implements PageFile{
 	
 	public static Boolean verifyFlightListing(WebDriver driver) throws IOException {
 		Boolean flag = driver.findElement(flightList).isDisplayed();
-		takeScreenShot(driver);
 		return flag;
 	}
 	

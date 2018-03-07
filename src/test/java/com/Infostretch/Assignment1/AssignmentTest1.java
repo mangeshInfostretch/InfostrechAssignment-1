@@ -46,6 +46,8 @@ public class AssignmentTest1 extends BaseClass{
 		
 		driver.findElement(searchBtn).click();
 		
+		takeScreenShot(driver);
+		
 		Assert.assertTrue("Flight listing is not Present", verifyFlightListing(driver));
 		
 		driver.quit();
