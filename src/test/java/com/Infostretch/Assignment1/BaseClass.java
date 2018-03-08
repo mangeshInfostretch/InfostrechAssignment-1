@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +25,7 @@ public class BaseClass implements PageFile{
 	public static WebDriver driver=null;
 	
 	public static WebDriver intDriver() throws IOException {
+		
 		InputStream input = new FileInputStream("config.properties");
 		// load a properties file
 		prop.load(input);
@@ -38,6 +42,14 @@ public class BaseClass implements PageFile{
 		driver.get(prop.getProperty("url"));
 	}
 	
+	public static void enterText(WebDriver driver, String option, By locator) {
+		driver.findElement(locator).sendKeys(option);
+	}
+	
+	public static void clickElement(WebDriver driver,By locator) {
+		driver.findElement(locator).click();
+	}
+	
 	public static Boolean verifyFlightListing(WebDriver driver) throws IOException {
 		Boolean flag = driver.findElement(flightList).isDisplayed();
 		return flag;
@@ -49,4 +61,5 @@ public class BaseClass implements PageFile{
 		FileUtils.copyFile(src, new File("C:\\Users\\Mangesh.Kulkarni\\eclipse-workspace\\Test\\Snapshot\\snap"+i+".png"));
 		i++;// Increment the order number of snapshot
 	}
+	
 }
