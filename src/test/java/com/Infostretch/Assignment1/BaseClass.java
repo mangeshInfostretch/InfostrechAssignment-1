@@ -5,8 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -82,6 +87,22 @@ public class BaseClass implements PageFile{
 		File src= ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(src, new File("C:\\Users\\Mangesh.Kulkarni\\eclipse-workspace\\InfostrechAssignment-1\\Snapshot\\snap"+i+".png"));
 		i++;// Increment the order number of snapshot
+	}
+	
+	public static String getPathWithCurrentDateAndTime() {
+		DateFormat df = new SimpleDateFormat("yyyy-MMM-dd hh:mm:ss aa");
+        Date dateobj = new Date();
+        String path = ".\\log\\testlog".concat(df.format(dateobj).toString().toString()).concat(".log");
+        path=path.replace(":", "");
+        path=path.replace(" ", "-");
+        
+        return path;
+	}
+	
+	public static void setPathInPropertiesFile(String logsPath) throws ConfigurationException {
+		PropertiesConfiguration properties = new PropertiesConfiguration("log4j.properties");
+        properties.setProperty("log4j.appender.R.File", logsPath);
+        properties.save();
 	}
 	
 }
