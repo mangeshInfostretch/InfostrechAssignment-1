@@ -14,7 +14,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class BaseClass implements PageFile{
 
@@ -30,11 +32,31 @@ public class BaseClass implements PageFile{
 		// load a properties file
 		prop.load(input);
 		
-		System.setProperty("webdriver.gecko.driver",prop.getProperty("geckoPath"));
+		//Get gecko driver path
+		System.setProperty("webdriver.gecko.driver",prop.getProperty("geckoDriverPath"));
 		
-		//Inilize the driver
-		driver = new FirefoxDriver();
+		switch (prop.getProperty("Browser")) {
+		
+			case "Firefox":
+				driver = new FirefoxDriver();
+				break;
+			
+			case "Chrome":
+				System.setProperty("webdriver.chrome.driver",prop.getProperty("chromeDriverPath"));
+				driver = new ChromeDriver();
+				break;
+		
+			case "IE":
+				System.setProperty("webdriver.IE.driver",prop.getProperty("IEDriverPath"));
+				driver = new InternetExplorerDriver();
+				break;
+
+			default:
+				break;
+		}
+
 		driver.get(prop.getProperty("url"));
+		driver.manage().window().maximize();
 		return driver;
 	}
 	
@@ -58,7 +80,7 @@ public class BaseClass implements PageFile{
 	public static void takeScreenShot(WebDriver driver) throws IOException {
 		// Take screenshot and store as a file format
 		File src= ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(src, new File("C:\\Users\\Mangesh.Kulkarni\\eclipse-workspace\\Test\\Snapshot\\snap"+i+".png"));
+		FileUtils.copyFile(src, new File("C:\\Users\\Mangesh.Kulkarni\\eclipse-workspace\\InfostrechAssignment-1\\Snapshot\\snap"+i+".png"));
 		i++;// Increment the order number of snapshot
 	}
 	
